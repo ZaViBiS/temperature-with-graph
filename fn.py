@@ -25,17 +25,20 @@ def max_cal(l: list) -> int:
     return max_num + 1
 
 
-def oled_print(oled, dl: list, min_num: int, max_num: int) -> None:
+def oled_print(oled, graphics, dl: list, min_num: int, max_num: int) -> None:
     # Выводит на экран данные в виде точек
     # line_write(oled)
     oled.fill(0)
     oled.text(str(dl[-1]), 10, 10)
     loc_x = 0
+    back = location_calculation(max_num, min_num, dl[0])
     for temp in dl:
         y = location_calculation(max_num, min_num, temp)
         y = 63 - y
-        oled.pixel(loc_x, y, 1)
+        graphics.line(loc_x-1, back, loc_x, y, 1)
+        # oled.pixel(loc_x, y, 1)
         loc_x += 1
+        back = y
     oled.show()
 
 
